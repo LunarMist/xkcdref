@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Xkcd Statistics</title>
+
+    <link rel="stylesheet" href="/static/css/datatable-theme.css">
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        (function (stats, $, undefined) {
+            stats.comic_titles = {{ comic_titles|safe }};
+        }(window.stats = window.stats || {}, jQuery));
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script src="/static/js/tables.js"></script>
+    <script src="/static/js/pages/stats.js"></script>
+{% endblock %}
+
+{% block body %}
+    <!-- Basic Statistics -->
+    <div class="page-header">
+        <h2>Basic Statistics</h2>
+    </div>
+    <p>
+        Since November 18<sup>th</sup> 2013, <a href="https://www.reddit.com/u/xkcd_transcriber">/u/xkcd_transcriber</a>
+        has picked up <span class="badge">{{ total_count|format_int }}</span> references to xkcd comics, excluding those
+        from xkcd subs. A total of <span class="badge">{{ unique_comics_count|format_int }}</span> unique comics has
+        been referenced so far, with a mean value of <span class="badge">{{ mean_value|round(3) }}</span>
+        references/comic (out of all comics) and a standard deviation of <span
+            class="badge">{{ std_deviation|round(3) }}</span>. <a href="/downloads/ranking/">Download as csv</a>
+    </p>
+    <table class="table table-striped table-bordered table-hover" id="basic_stats">
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Comic</th>
+            <th>Count</th>
+            <th>% Total</th>
+            <th>Num. of deviations from the mean</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in comic_rankings %}
+            <tr>
+                <td>{{ c.0 }}</td>
+                <td><a href="https://xkcd.com/{{ c.1.0 }}/">{{ c.1.0 }} : {{ c.1.1 }}</a></td>
+                <td>{{ c.2 }}</td>
+                <td>{{ c.3|round(3) }}%</td>
+                {% if c.4 > 0.0 %}
+                    <td>+{{ c.4|round(3) }}</td>
+                {% else %}
+                    <td>{{ c.4|round(3) }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Top Referencers -->
+    <div class="page-header">
+        <h2>Top Referencers</h2>
+    </div>
+    <p>
+        So far, we've had a total of <span class="badge">{{ unique_referencers|format_int }}</span> unique referencers!
+        Data since November 18<sup>th</sup> 2013. Top {{ top_users|length }} users:
+    </p>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>User</th>
+            <th>Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in top_users %}
+            <tr>
+                <td>{{ t.0 }}</td>
+                <td>{{ t.1 }}</td>
+                <td>{{ t.2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Comic breakdown -->
+    <div class="page-header">
+        <h2>Comic Breakdown</h2>
+    </div>
+    <p>
+        If it's not suggested, it hasn't been referenced yet. Data since November 18<sup>th</sup> 2013.
+    </p>
+    <label for="search_comic">Comic:</label> <input type="text" id="search_comic" size="30"/>
+    <div id="comic_breakdown_details"></div>
+
+    <!-- Subreddit breakdown -->
+    <div class="page-header">
+        <h2>Subreddit breakdown</h2>
+    </div>
+    <p>
+        Since November 18<sup>th</sup> 2013, <span class="badge">{{ unique_subreddits_count|format_int }}</span> unique
+        subreddits has referenced xkcd.
+    </p>
+    <div id="subreddit_breakdown"></div>
+    <hr>
+
+    <p>
+        Breakdown by subreddit:
+    </p>
+    <select id="select_subreddit">
+        {% for s in unique_subreddits %}
+            <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+    </select>
+    <div id="subreddit_breakdown_details"></div>
+    <hr>
+{% endblock %}

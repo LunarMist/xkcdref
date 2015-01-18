@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Backreferences</title>
+
+    <link rel="stylesheet" href="/static/css/datatable-theme.css">
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        (function (backrefs, $, undefined) {
+            backrefs.comic_titles = {{ comic_titles|safe }};
+        }(window.backrefs = window.backrefs || {}, jQuery));
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+
+    <script src="/static/js/tables.js"></script>
+    <script src="/static/js/pages/backrefs.js"></script>
+{% endblock %}
+
+{% block body %}
+    <!-- Search Form -->
+    <div class="page-header">
+        <h2>Query Backreferences</h2>
+    </div>
+    <p>
+        Find out who referenced what! Data since November 18<sup>th</sup> 2013. Filters (below) are AND'd together and
+        case insensitive.
+    </p>
+
+    <div class="well">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <label for="search_subreddit" class="control-label">Subreddit:</label>
+                    <input type="text" id="search_subreddit" class="search_param form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="search_user" class="control-label">User:</label>
+                    <input type="text" id="search_user" class="search_param form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="search_comic_id" class="control-label">Comic:</label>
+                    <input type="text" id="search_comic_id" class="search_param form-control"/>
+                </div>
+
+                <input type="button" id="search" value="Search" class="btn-sm btn-primary">
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Results -->
+    <div class="page-header">
+        <h2>Results</h2>
+        <font id="error" color="red"></font>
+    </div>
+    <div id="backref_results"></div>
+    <hr>
+{% endblock %}

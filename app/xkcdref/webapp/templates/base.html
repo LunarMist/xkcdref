@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- For mobile devices -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+
+    <!-- css -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootswatch.min.css">
+
+    <!-- Simple site css -->
+    <style>
+        .l-footer { text-align: center; }
+        .btn-outline { border-color: #563d7c; color: #563d7c; background-color: transparent; }
+        .btn-outline:hover { color: #ffffff; background-color: #563d7c; }
+    </style>
+
+    <!-- Custom head -->
+    {% block head %}{% endblock %}
+    <!-- End custom head -->
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">Xkcdref.info</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" aria-expanded="false">
+                <ul class="nav navbar-nav">
+                    <li><a href="/statistics/">Statistics</a></li>
+                    <li><a href="/backrefs/">Backreferences</a></li>
+                    <li><a href="/downloads/events/">Download Event Data</a></li>
+                    <li><a href="https://www.reddit.com/r/xkcd_transcriber/">Subreddit</a></li>
+                    <li><a href="https://github.com/JeremySimpson/redditbot">Github</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom body -->
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <!-- End custom body -->
+
+    <!-- Footer -->
+    <footer class="l-footer">
+        <p>
+            <a href="https://github.com/JeremySimpson/redditbot">Github</a>
+        </p>
+    </footer>
+
+    <!-- Core javascript and bootstraps scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Tracking -->
+    {% if track %}
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-49438674-1', 'xkcdref.info');
+            ga('send', 'pageview');
+        </script>
+    {% endif %}
+    <!-- End tracking -->
+
+    <!-- Additional scripts -->
+    {% block scripts %}{% endblock %}
+    <!-- End additional scripts -->
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Xkcdref.info home</title>
+{% endblock %}
+
+{% block body %}
+    <!-- Welcome message -->
+    <div class="jumbotron">
+        <h1>Welcome!</h1>
+
+        <p>Welcome to xkcdref.info! Click one of the links below to explore.<br/></p>
+    </div>
+
+    <!-- Link boxes -->
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Statistics</h2>
+
+            <p>View xkcd reference statistics.</p>
+
+            <p><a href="/statistics/" class="btn btn-outline">Explore</a></p>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Backreferences</h2>
+
+            <p>Find out who referenced what!</p>
+
+            <p><a href="/backrefs/" class="btn btn-outline">Explore</a></p>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Source</h2>
+
+            <p>This webapp is open source!</p>
+
+            <p><a href="https://github.com/JeremySimpson/redditbot" class="btn btn-outline">View on Github.com</a></p>
+        </div>
+    </div>
+{% endblock %}

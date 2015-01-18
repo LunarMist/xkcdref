@@ -1,0 +1,1 @@
+XKCD_DB_LOCATION = ''

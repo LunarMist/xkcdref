@@ -1,0 +1,6 @@
+recursive-include xkcdref/webapp/templates *
+recursive-include xkcdref/webapp/static *
+
+exclude .DS_Store
+exclude thumbs.db
+exclude .*
