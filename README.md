@@ -22,5 +22,9 @@ Project uses:
 ### Installation ###
 
 ```
-python setup.py
+python setup.py install
+
 ```
+
+### Running ###
+Once installed, `runsite-xkcdref` will run the server. Use with `--help` to provide more options

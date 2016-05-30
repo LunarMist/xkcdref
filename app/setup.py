@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='xkcdref',
-    version='2.0.0',
+    version='2.0.1',
     author='Jeremy Simpson',
     description='xkcdref app',
     license='MIT',
@@ -27,4 +27,5 @@ setuptools.setup(
         'coloredlogs',
     ],
     include_package_data=True,
+    zip_safe=False,
 )
